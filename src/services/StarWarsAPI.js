@@ -2,12 +2,11 @@ import axios from 'axios'
 
 const BASE_URL = 'https://swapi.dev/api/'
 
-
 /**
  * Get all people
  */
-const getPeople = async () => {
-	const res = await axios.get(`${BASE_URL}/people`)
+const getPeople = async (page) => {
+	const res = await axios.get(`${BASE_URL}/people/?page=${page}`)
 	return res.data
 }
 
@@ -37,10 +36,21 @@ const getPerson = async (id) => {
 	return res.data
 }
 
+/**
+ * Generate id 
+ */
+const getId = (url) => {
+    const [_endpoint, id] = url
+        .replace('https://swapi.dev/api/', '')
+        .slice(0, -1)
+        .split('/')
+    return id
+}
 
 export default {
 	getPeople,
 	getPerson,
 	getFilms,
-	getFilm
+	getFilm,
+	getId
 }

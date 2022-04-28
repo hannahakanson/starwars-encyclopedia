@@ -1,14 +1,11 @@
-import { Link } from 'react-router-dom'
 import Image from 'react-bootstrap/Image'
 import StarWarsLogo from '../assets/images/starwars-encyclopdia.png'
 
 const HomePage = () => {
 	return (
-		<>
-		
-			<Image src={StarWarsLogo} fluid />
-			
-		</>
+		<div className="homepage-container d-flex justify-content-center align-items-center">
+			<Image className="homepage-img" src={StarWarsLogo} fluid />
+		</div>
 	)
 }
 

@@ -2,14 +2,19 @@ import { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button'
 import { Link, useParams } from 'react-router-dom'
 import StarWarsAPI from '../services/StarWarsAPI'
+import ListGroup from 'react-bootstrap/ListGroup'
 
 const SingleFilmPage = () => {
 	const [film, setFilm] = useState([])
+	const [characters, setCharacters] = useState([])
 	const { id } = useParams()
+	const { people } = film
 
 	const getFilm = async (id) => {
 		const data = await StarWarsAPI.getFilm(id)
 		setFilm(data)
+		setCharacters(data.characters)
+		console.log("film data:", data)
 	}
 
 	useEffect(() => {
@@ -19,6 +24,9 @@ const SingleFilmPage = () => {
 	if (!film) {
 		return <p>Loading...</p>
 	}
+
+	console.log(people)
+
 
 	return (
 		<div className="data-info">
@@ -34,6 +42,18 @@ const SingleFilmPage = () => {
             <p>"{film.opening_crawl}"</p>
             <hr/>
             <h3>Characters</h3>
+			<ListGroup>
+              {characters.map((person, index) => 
+                (
+                  <ListGroup.Item
+                    action
+                    as={Link}
+                    to={`/people/${StarWarsAPI.getId(person)}`}
+                    key={StarWarsAPI.getId(person)}
+                  >Character {index+1}</ListGroup.Item>
+                )
+              )}
+          </ListGroup>
 		</div>
 	)
 }

@@ -5,13 +5,14 @@ import { Link } from 'react-router-dom'
 import StarWarsAPI from '../services/StarWarsAPI'
 
 
+
 const PeoplePage = () => {
 	const [people, setPeople] = useState([])
-	const [page, setPage] = useState(0)
+	const [page, setPage] = useState(1)
 
 	const getPeople = async () => {
 		// Get people from api
-		const data = await StarWarsAPI.getPeople()
+		const data = await StarWarsAPI.getPeople(page)
 
 		// update people state
 		setPeople(data.results)
@@ -19,47 +20,63 @@ const PeoplePage = () => {
 		console.log(data)
 	}
 
-	//Handle click
-	const handleClick = () => {
-		console.log("Hello")
-	}
-
-	useEffect(() => {
-
-	}, [page])
-
-
 	// Get people from api when component is first mounted
 	useEffect(() => {
 		getPeople()
-	}, [])
+		//directing client to top of page
+		window.scrollTo(0,0);
+	}, [page])
 
-	//Generate id
-	const findId = (url) => {
-		const id = url.slice(-2)
-		return id;
-	  }
 
-	if (!people) {
-		return <p>Loading...</p>
-	}
 
 	return (
 		<>
-			<h1 className="yellow-heading">Characters</h1>
+			{people.length == 0 && (
+			<div className="d-flex justify-content-center align-items-center">
+				<div className="lds-ring">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+			)}
 
 			{people.length > 0 && (
+				<>
+				<h1 className="yellow-heading">CHARACTERS</h1>
 				<ListGroup className="data-list">
 					{people.map(person => (
-        			<div key={findId(person.url)} className="card">
-          			<h3>{person.name}</h3>
-          			<hr/>
-          			<Link to={`/people/${findId(person.url)}`}>Read more</Link>
-        		</div>
-      		))}
+        			<div key={StarWarsAPI.getId(person.url)} className="card">
+						<h3>{person.name}</h3>
+						<hr/>
+						<p><strong>Birth year: </strong>{person.birth_year}</p>
+						<p><strong>Gender: </strong>{person.gender}</p>
+						<Link to={`/people/${StarWarsAPI.getId(person.url)}`}>Read more</Link>
+        			</div>
+      				))}
 				</ListGroup>
+
+			<div className='d-flex justify-content-center align-items-center p-4'>
+				{page !==1 && 
+				<Button 
+					variant="warning" 
+					className="m-4"
+					onClick={() => setPage(prevValue => prevValue - 1)}
+					> ← 
+				</Button>
+				}
+				<h4 className="yellow-heading m-4"> Page: {page} </h4>
+				<Button 
+					variant="warning" 
+					className="m-4" 
+					onClick={() => setPage(prevValue => prevValue + 1)}
+					> → 
+				</Button>
+			</div>
+			</>
 			)}
-			<Button variant="warning" onClick={() => handleClick()}>Next page</Button>
+			
 		</>
 	)
 }
