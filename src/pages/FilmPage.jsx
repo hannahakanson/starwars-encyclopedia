@@ -15,7 +15,7 @@ const FilmPage = () => {
         console.log(data)
 	}
 
-	// Get people from api when component is first mounted
+	// Get films from api when component is first mounted
 	useEffect(() => {
 		getFilms()
 	}, [])

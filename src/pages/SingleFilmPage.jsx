@@ -35,7 +35,7 @@ const SingleFilmPage = () => {
             <hr/>
     
             <p><strong>Release date: </strong>{film.release_date}</p>
-            <p><strong>Director: </strong>{film.director}</p>
+            <p><strong>Directed by: </strong>{film.director}</p>
             <p><strong>Producer: </strong>{film.producer}</p>
             <hr/>
             <h3>Opening</h3>

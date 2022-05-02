@@ -47,10 +47,13 @@ const getId = (url) => {
     return id
 }
 
-export default {
+const APIFunctions = {
 	getPeople,
 	getPerson,
 	getFilms,
 	getFilm,
 	getId
 }
+
+
+export default APIFunctions
