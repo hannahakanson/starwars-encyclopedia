@@ -40,6 +40,7 @@ const getPerson = async (id) => {
  * Generate id 
  */
 const getId = (url) => {
+	// eslint-disable-next-line no-unused-vars
     const [_endpoint, id] = url
         .replace('https://swapi.dev/api/', '')
         .slice(0, -1)

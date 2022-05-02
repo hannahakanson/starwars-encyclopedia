@@ -23,7 +23,7 @@ const FilmPage = () => {
 
 	return (
 		<>
-			{films.length == 0 && (
+			{films.length === 0 && (
 			<div className="loading-page d-flex justify-content-center align-items-center">
 				<div className="lds-ring">
 					<div></div>

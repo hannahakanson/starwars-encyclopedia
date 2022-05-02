@@ -8,7 +8,6 @@ const SingleFilmPage = () => {
 	const [film, setFilm] = useState([])
 	const [characters, setCharacters] = useState([])
 	const { id } = useParams()
-	const { people } = film
 
 	const getFilm = async (id) => {
 		const data = await StarWarsAPI.getFilm(id)
@@ -19,18 +18,17 @@ const SingleFilmPage = () => {
 
 	useEffect(() => {
 		getFilm(id)
+
 	}, [id])
 
 	if (!film) {
 		return <p>Loading...</p>
 	}
 
-	console.log(people)
-
 
 	return (
 		<div className="data-info">
-            <Button className="back-btn" variant="warning" as={Link} to={`/films/`}>Back</Button>
+            <Button className="back-btn" variant="warning" as={Link} to={`/films/`}>← Back to all films</Button>
 			<h1>{film.title}</h1>
             <hr/>
     

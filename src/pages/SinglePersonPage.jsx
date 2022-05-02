@@ -26,13 +26,15 @@ const SinglePersonPage = () => {
 
 	return (
 		<div className="data-info">
-			<Button className="back-btn" variant="warning" as={Link} to={`/people`}>Back</Button>
+			<Button className="back-btn" variant="warning" as={Link} to={`/people`}>← Back to all characters</Button>
 			<h1>{person.name}</h1>
 			<hr/>
 			<p><strong>Birth year: </strong>{person.birth_year}</p>
 			<p><strong>Height: </strong>{person.height}</p>
+			<p><strong>Mass: </strong>{person.mass} kg</p>
 			<p><strong>Hair color: </strong>{person.hair_color}</p>
 			<p><strong>Eye color: </strong>{person.eye_color}</p>
+			<p><strong>Skin color: </strong>{person.skin_color}</p>
 			<hr/>
 			<h2>Films</h2>
 			<ListGroup>

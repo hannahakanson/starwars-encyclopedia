@@ -10,19 +10,16 @@ const PeoplePage = () => {
 	const [people, setPeople] = useState([])
 	const [page, setPage] = useState(1)
 
-	const getPeople = async () => {
-		// Get people from api
-		const data = await StarWarsAPI.getPeople(page)
-
-		// update people state
-		setPeople(data.results)
-
-		console.log(data)
-	}
-
 	// Get people from api when component is first mounted
 	useEffect(() => {
-		getPeople()
+		const getPeople = async () => {
+			// Get people from api
+			const data = await StarWarsAPI.getPeople(page)
+			// update people state
+			setPeople(data.results)
+			console.log(data)
+		}
+		getPeople();
 		//directing client to top of page
 		window.scrollTo(0,0);
 	}, [page])
@@ -31,7 +28,7 @@ const PeoplePage = () => {
 
 	return (
 		<>
-			{people.length == 0 && (
+			{people.length === 0 && (
 			<div className="d-flex justify-content-center align-items-center">
 				<div className="lds-ring">
 					<div></div>
@@ -52,6 +49,16 @@ const PeoplePage = () => {
 						<hr/>
 						<p><strong>Birth year: </strong>{person.birth_year}</p>
 						<p><strong>Gender: </strong>{person.gender}</p>
+						<p><strong>Starring in: </strong>
+						{person.films.length > 1 && (
+						<>
+							{person.films.length} films
+						</>)}
+						{person.films.length === 1 && (
+						<>
+							{person.films.length} film
+						</>)}
+						</p>
 						<Link to={`/people/${StarWarsAPI.getId(person.url)}`}>Read more</Link>
         			</div>
       				))}
